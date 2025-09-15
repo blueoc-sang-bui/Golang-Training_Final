@@ -1,0 +1,16 @@
+CREATE TABLE IF NOT EXISTS posts (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    tags TEXT[] NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX IF NOT EXISTS idx_posts_tags_gin ON posts USING GIN (tags);
+
+CREATE TABLE IF NOT EXISTS activity_logs (
+    id SERIAL PRIMARY KEY,
+    action VARCHAR(50) NOT NULL,
+    post_id INTEGER REFERENCES posts(id),
+    logged_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
