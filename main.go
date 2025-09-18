@@ -15,7 +15,6 @@ func main() {
 	cache.InitRedis()
 	search.InitES()
 	r := mux.NewRouter()
-	// Register handlers
 	importHandlers(r)
 	port := os.Getenv("PORT")
 	if port == "" {
@@ -27,10 +26,6 @@ func main() {
 }
 
 func importHandlers(r *mux.Router) {
-	// Import các handler từ package handlers
-	// Đăng ký các endpoint chính
-	// Bạn cần import "handlers" ở đầu file
-	// Đăng ký các endpoint cụ thể trước endpoint động
 	r.HandleFunc("/posts/search", handlers.SearchPosts).Methods("GET")
 	r.HandleFunc("/posts/tag/{tag}", handlers.SearchByTag).Methods("GET")
 	r.HandleFunc("/posts", handlers.CreatePost).Methods("POST")
